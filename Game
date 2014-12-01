@@ -1,11 +1,9 @@
 package Main;
 import javax.swing.JFrame;
-/**
- * Created by Алина on 01.12.2014.
- */
+
 public class Game {
     public static void main(String[] args){
-        JFrame window = new JFrame("Dragon tale");
+        JFrame window = new JFrame("Vinny");
         window.setContentPane(new GamePanel());
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(true);
