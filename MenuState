@@ -1,5 +1,7 @@
 package GameState;
+import Audio.AudioManager;
 import TileMap.Background;
+
 
 
 import java.awt.*;
@@ -12,9 +14,8 @@ public class MenuState extends  GameState {
     private  int currentChoice = 0;
     private String[] options = {
 
-            "Start",
-            "Help",
-            "Quit"
+            "Старт",
+            "Выход"
 
     };
     private Color titleColor;
@@ -27,29 +28,35 @@ public class MenuState extends  GameState {
         this.gsm = gsm;
         try {
         	
-            bg = new Background("/Backgrounds/menubg.png",1);
+            bg = new Background("/Backgrounds/menubg2.png",1);
 
-            bg.setVector(-0.1,0);
+          //  bg.setVector(-0.1,0);
             titleColor = new Color(128,0,0);
-            titleFont = new Font("Century Gothic", Font.PLAIN, 28);
-            font = new Font("Arial", Font.PLAIN, 12);
+            titleFont = new Font("Segoe Print", Font.PLAIN, 25);
+            font = new Font("Segoe Print", Font.PLAIN, 16);
         }
         catch (Exception e){
             e.printStackTrace();
         }
-
+        init();
     }
 
-    public   void init(){}
+    public void init() {
+    	AudioManager.getInstanse().getLevel1Music().stop();
+    	AudioManager.getInstanse().getwastedMusic().stop();
+    	AudioManager.getInstanse().getStartMusic().play();
+    }
+    
     public   void update(){
         bg.update();
     }
+    
     public   void draw ( java.awt.Graphics2D g){
         bg.draw(g);
         //draw title
         g.setColor(titleColor);
         g.setFont(titleFont);
-        g.drawString("Vinny", 115, 70);
+        g.drawString("", 85, 70);
 
         g.setFont(font);
         for (int i =0 ; i< options.length; i++ ){
@@ -60,19 +67,21 @@ public class MenuState extends  GameState {
                 g.setColor(Color.RED);
 
             }
-            g.drawString (options[i], 145, 140 + i*15);
+            g.drawString (options[i], 200, 140 + i*30);
         }
     }
     private void select(){
         if (currentChoice == 0){
-//start
+        	gsm.setState(GameStateManager.LEVEL1STATE);
+
         }
         if (currentChoice == 1){
 //chois
+        	System.exit(0);
         }
-        if (currentChoice == 2){
-            System.exit(0);
-        }
+//        if (currentChoice == 2){
+//            System.exit(0);
+//        }
     }
     public   void keyPressed(int k){
         if (k== KeyEvent.VK_ENTER){
